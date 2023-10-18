@@ -1,7 +1,9 @@
 [package]
 name = "hello_world"
 type = "bin"
-authors = [""]
+authors = ["Emir S."]
 compiler_version = "0.10.5"
+description = "Getting started with Noir"
 
 [dependencies]
+noir_ml = { path = "../noir-ml" }
