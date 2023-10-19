@@ -1,9 +1,14 @@
 import PropTypes from "prop-types";
+import Navbar from "../pages/Navbar/Navbar.jsx";
 
-const Layout = ({ children }) => {
+const Layout = ({children}) => {
     return (
-        <div className="flex flex-col items-center justify-center py-5 px-2 md:px-5 lg:px-10 mt-5 mx-auto max-w-zkml">
-            {children}
+        <div className={"bg-dark_111 min-h-screen py-5 px-2 md:px-5 lg:px-10 "}>
+            <Navbar />
+            <div
+                className="flex flex-col items-center justify-center mx-auto max-w-zkml">
+                {children}
+            </div>
         </div>
     )
 }
