@@ -5,28 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a9cfbc2-2aa7-41c0-8048-a6235b6a8bdf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Prover.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/noir.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/skproof" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/noir_code_generator.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/skproof/src/zkfloat.nr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/skproof_example.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Prover.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main.nr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/zkfloat.nr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/process_data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/process_data.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/noir.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/noir.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skproof" beforeDir="false" afterPath="$PROJECT_DIR$/skproof" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/Nargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/Nargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/ZKFloat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/example.py" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/example.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/skproof-package/build/lib/skproof/mlp/MLPClassifierProver.py" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/skproof-package/build/lib/skproof/mlp/MLPClassifierProver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/skproof-package/skproof/mlp/MLPClassifierProver.py" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/skproof-package/skproof/mlp/MLPClassifierProver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/src/main.nr" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/src/main.nr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../noir/hello_world/Nargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../noir/hello_world/Nargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../noir/hello_world/src/activation_function.nr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../noir/hello_world/src/main.nr" beforeDir="false" afterPath="$PROJECT_DIR$/../noir/hello_world/src/main.nr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/word_to_index.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/word_to_index.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../noir/sentiment/src/main.nr" beforeDir="false" afterPath="$PROJECT_DIR$/../noir/sentiment/src/main.nr" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,21 +49,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/volthai7us/Desktop/dev/hackathons/zkml-censor/ml/skproof/src",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/volthai7us/Desktop/dev/hackathons/zkml-censor/ml/skproof/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="ml" is-module-sdk="true">
@@ -96,7 +87,8 @@
       <updated>1697107547470</updated>
       <workItem from="1697107548486" duration="3502000" />
       <workItem from="1697177108934" duration="2771000" />
-      <workItem from="1697629511274" duration="7168000" />
+      <workItem from="1697629511274" duration="7303000" />
+      <workItem from="1697703490217" duration="9610000" />
     </task>
     <servers />
   </component>
