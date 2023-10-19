@@ -1,4 +1,6 @@
 import {shortenAddress} from "../../utils/index.js";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faComment, faHeart, faShare} from "@fortawesome/free-solid-svg-icons";
 
 export default function Post(props) {
     const {sender, address, text, date} = props
@@ -27,7 +29,31 @@ export default function Post(props) {
                 <span className={"block text-white font-semibold"}>
                     {text}
                 </span>
+                <div className={"flex flex-row justify-between text-dark_555 mt-4"}>
+                    <PostIcon icon={faComment}
+                              count={61}
+                    />
+                    <PostIcon icon={faShare}
+                              count={12}
+                    />
+                    <PostIcon icon={faHeart}
+                              count={6200}
+                    />
+                </div>
             </div>
+        </div>
+    )
+}
+
+function PostIcon(props) {
+    const {icon, count} = props
+
+    return (
+        <div className={""}>
+            <FontAwesomeIcon icon={icon}/>
+            <span className={"ml-4"}>
+                {count}
+            </span>
         </div>
     )
 }
