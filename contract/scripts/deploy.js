@@ -6,21 +6,34 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
+async function deployVerifier() {
+    const UltraVerifier = await hre.ethers.getContractFactory("UltraVerifier");
+    const ultraVerifier = await UltraVerifier.deploy();
+    await ultraVerifier.deployed();
+
+    return ultraVerifier.address
+}
+
+async function deployTimeline({
+                                  verifierAddress
+                              }) {
+    const Timeline = await hre.ethers.getContractFactory("Timeline");
+    const timeline = await Timeline.deploy(verifierAddress);
+    await timeline.deployed();
+
+    console.log(`deployed to ${timeline.address}`);
+}
+
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
-
-  const UltraVerifier = await hre.ethers.getContractFactory("UltraVerifier");
-  const ultraVerifier = await UltraVerifier.deploy(unlockTime, {});
-
-  await ultraVerifier.deployed();
-
-  console.log(`deployed to ${ultraVerifier.address}`);
+    const verifierAddress = await deployVerifier()
+    await deployTimeline({
+        verifierAddress: verifierAddress
+    })
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+    console.error(error);
+    process.exitCode = 1;
 });
