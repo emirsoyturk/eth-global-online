@@ -1,8 +1,8 @@
 const example = require('../services/example.service')
 const {handleAsync} = require('../services/error.service')
 const {generalLogger} = require('../services/logger.service')
-const word_to_index = require('/Users/volthai7us/Desktop/dev/hackathons/zkml-censor/ml/word_to_index.json')
-const index_to_word = require("/Users/volthai7us/Desktop/dev/hackathons/zkml-censor/ml/index_to_word.json")
+const word_to_index = require('../../external/word_to_index.json')
+const index_to_word = require("../../external/index_to_word.json")
 
 function levenshtein(a, b) {
     const matrix = [];

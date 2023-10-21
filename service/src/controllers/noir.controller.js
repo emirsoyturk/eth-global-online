@@ -2,7 +2,7 @@ const {ethers} = require("ethers");
 
 const {handleAsync} = require('../services/error.service')
 const {generalLogger} = require('../services/logger.service')
-const circuit = require('../../../noir/sentiment/target/sentiment.json')
+const circuit = require('../../external/sentiment.json')
 const {decompressSync} = require('fflate')
 const {compressWitness, executeCircuit} = require("@noir-lang/acvm_js")
 
