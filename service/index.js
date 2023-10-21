@@ -7,6 +7,8 @@ const dotenv = require('dotenv')
 const { generalLogger } = require('./src/services/logger.service')
 
 const example = require('./src/routes/example.route')
+const sentence = require('./src/routes/sentence.route')
+const noir = require('./src/routes/noir.route')
 
 dotenv.config()
 
@@ -20,6 +22,7 @@ const errorHandler = (error, request, response, next) => {
         return
     }
 
+    console.log(error)
     generalLogger.error(`Error occurred during the request.`, {
         errorMessage: error.message,
         method: request.method,
@@ -47,6 +50,8 @@ app.use(helmet())
 // Routes
 app.get('/', (req, res) => res.json({ message: 'ok' }))
 app.use('/example', example)
+app.use('/sentence', sentence)
+app.use("/noir", noir)
 
 // Error handler middleware
 app.use(errorHandler)
