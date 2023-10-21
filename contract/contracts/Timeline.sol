@@ -5,11 +5,12 @@ import "./BaseUltraVerifier.sol";
 
 contract Timeline {
     struct Post {
-        string content;
+        bytes32[] content;
         address author;
         uint256 likes;
         uint256 commentsCount;
-        bool positive;
+        bytes32 positive;
+        bytes32 hash;
         bytes proof;
     }
 
@@ -38,14 +39,15 @@ contract Timeline {
         baseUltraVerifier = BaseUltraVerifier(verifier);
     }
 
-    function createPost(string memory _content, bytes calldata _proof, bytes32[] calldata _publicInputs) public {
+    function createPost(bytes calldata _proof, bytes32[] calldata _publicInputs) public {
         require(baseUltraVerifier.verify(_proof, _publicInputs), "Wrong proof");
         posts[postsCount] = Post({
-            content: _content,
+            content: _publicInputs[: _publicInputs.length - 2],
             author: msg.sender,
             likes: 0,
             commentsCount: 0,
-            positive: _publicInputs[1] == bytes32("1"),
+            positive: _publicInputs[_publicInputs.length - 2],
+            hash: _publicInputs[_publicInputs.length - 1],
             proof: _proof
         });
         postsCount++;
@@ -85,27 +87,30 @@ contract Timeline {
         return (profile.username, profile.bio);
     }
 
-    function getPost(uint256 _postId, bool censor) public view returns (string memory, address, uint256, uint256) {
+    function getPost(uint256 _postId, bool censor) public view returns (bytes32[] memory, address, uint256, uint256, bytes32) {
         require(_postId < postsCount, "Invalid Post ID");
 
         Post storage post = posts[_postId];
 
         //require(!censor || post.positive, "This post is tagged as negative");
 
-        if (censor && !post.positive) {
-            return (
-                "Censor",
-                post.author,
-                post.likes,
-                post.commentsCount
-            );
-        }
+//        if (censor && !post.positive) {
+//            bytes32[] memory censor;
+//            censor[0] = "0x0";
+//            return (
+//                censor,
+//                post.author,
+//                post.likes,
+//                post.commentsCount
+//            );
+//        }
 
         return (
             post.content,
             post.author,
             post.likes,
-            post.commentsCount
+            post.commentsCount,
+            post.positive
         );
     }
 

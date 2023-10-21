@@ -1,5 +1,6 @@
 const {ethers} = require("ethers");
 
+const {mimcSponge} = require("@darkforest_eth/hashing");
 const {handleAsync} = require('../services/error.service')
 const {generalLogger} = require('../services/logger.service')
 const circuit = require('../../../noir/sentiment/target/sentiment.json')
@@ -76,16 +77,23 @@ async function prove(req, res) {
     const acirBuffers = decompression()
     const bb = await initializeBB(acirBuffers.acirBufferUncompressed)
 
-    const witness = await generateWitness(input, hash, positive, acirBuffers.acirBuffer)
-    const proof = await generateProof({
-        witness: witness,
-        api: bb.api,
-        acirComposer: bb.acirComposer,
-        acirBufferUncompressed: acirBuffers.acirBufferUncompressed
-    })
+    try {
 
-    let hex = Buffer.from(proof).toString('hex');
-    res.json(hex)
+        const witness = await generateWitness(input, hash, positive, acirBuffers.acirBuffer)
+        const proof = await generateProof({
+            witness: witness,
+            api: bb.api,
+            acirComposer: bb.acirComposer,
+            acirBufferUncompressed: acirBuffers.acirBufferUncompressed
+        })
+
+        let hex = Buffer.from(proof).toString('hex');
+        generalLogger.info(`Proof generated`)
+        res.json(hex)
+    } catch (e) {
+        res.json("could not satisfy all constraints")
+    }
+
 }
 
 const fromHexString = (hexString) =>
@@ -99,11 +107,23 @@ async function verify(req, res) {
     await bb.api.acirInitProvingKey(bb.acirComposer, acirBuffers.acirBufferUncompressed);
     const verified = await bb.api.acirVerifyProof(bb.acirComposer, fromHexString(proof), false);
 
-    console.log(verified)
+    generalLogger.info(`Verification: ${verified}`)
     res.json(verified)
+}
+
+async function hash(req, res) {
+    const {indexes} = req.body
+
+    const hash = mimcSponge(indexes, 1, 91, 7)
+
+    console.log(hash[0].toString(16))
+
+    generalLogger.info(`Hashed: ${hash}`)
+    res.json(hash)
 }
 
 module.exports = {
     prove: handleAsync(prove),
-    verify: handleAsync(verify)
+    verify: handleAsync(verify),
+    hash: handleAsync(hash)
 }
