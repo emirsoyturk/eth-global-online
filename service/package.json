@@ -5,7 +5,6 @@
   "license": "MIT",
   "dependencies": {
     "@aztec/bb.js": "0.3.6",
-    "@darkforest_eth/hashing": "^6.7.29",
     "@noir-lang/acvm_js": "https://git@github.com/noir-lang/acvm-simulator-wasm.git#b9d9ca9dfc5140839f23998d9466307215607c42",
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
@@ -21,6 +20,7 @@
     "nodemon": "^3.0.1"
   },
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   }
 }
