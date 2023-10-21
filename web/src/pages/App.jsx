@@ -2,7 +2,7 @@ import Layout from "../components/Layout.jsx";
 import Sidebar from "./Sidebar/Sidebar.jsx";
 import Home from "./Home/Home.jsx";
 import {useEffect, useState} from "react";
-import {getAndParsePost, getTimelineContract} from "../api/index.js";
+import {getAndParsePost, getTimelineContract, sentenceToIndexes} from "../api/index.js";
 
 function App() {
     const [censor, setCensor] = useState(false)
