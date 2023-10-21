@@ -300,3 +300,5 @@ data/
 *.csv
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node,yarn,intellij
+noir/sentiment/target/sentiment.json
+noir/sentiment/proofs/sentiment.proof

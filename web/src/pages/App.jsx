@@ -6,7 +6,7 @@ import {getAndParsePost, getTimelineContract, sentenceToIndexes} from "../api/in
 import {Toaster} from "react-hot-toast";
 
 function App() {
-    const [censor, setCensor] = useState(true)
+    const [censor, setCensor] = useState(false)
     const [totalPost, setTotalPost] = useState(0)
     const [posts, setPosts] = useState([])
 
@@ -39,10 +39,10 @@ function App() {
         };
 
         fetchPosts();
-    }, [totalPost]);
+    }, [totalPost, censor]);
 
     return (
-        <Layout>
+        <Layout setCensor={setCensor} censor={censor}>
             <Toaster />
             <div className={"grid md:grid-cols-5 w-full"}>
                 <Sidebar/>
