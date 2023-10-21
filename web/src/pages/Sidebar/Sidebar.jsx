@@ -1,10 +1,11 @@
-import {faBookmark, faHashtag, faHouse, faListDots, faMessage, faRing, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faBookmark, faHashtag, faHouse, faUser} from "@fortawesome/free-solid-svg-icons";
 import SidebarItem from "./SidebarItem.jsx";
 import {useState} from "react";
-export default  function Sidebar() {
-    const [selected, setSelected] = useState("Home")
-    const items = ["Home", "Explore", "Notifications", "Messages", "Bookmarks", "Profile", "More"]
-    const icons = [faHouse, faHashtag, faRing, faMessage, faBookmark, faUser, faListDots]
+
+export default function Sidebar(props) {
+    const {selected, setSelected} = props
+    const items = ["Home", "Messages", "Profile"]
+    const icons = [faHouse, faHashtag, faUser]
 
     const handleClick = (item) => {
         setSelected(item)

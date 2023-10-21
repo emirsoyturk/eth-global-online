@@ -4,11 +4,14 @@ import Home from "./Home/Home.jsx";
 import {useEffect, useState} from "react";
 import {getAndParsePost, getTimelineContract, sentenceToIndexes} from "../api/index.js";
 import {Toaster} from "react-hot-toast";
+import Messages from "./Home/Messages.jsx";
+import Profile from "./Home/Profile.jsx";
 
 function App() {
-    const [censor, setCensor] = useState(false)
+    const [censor, setCensor] = useState(true)
     const [totalPost, setTotalPost] = useState(0)
     const [posts, setPosts] = useState([])
+    const [selected, setSelected] = useState("Home")
 
     useEffect(() => {
         const fetchPostCount = async () => {
@@ -43,10 +46,30 @@ function App() {
 
     return (
         <Layout setCensor={setCensor} censor={censor}>
-            <Toaster />
+            <Toaster/>
             <div className={"grid md:grid-cols-5 w-full"}>
-                <Sidebar/>
-                <Home posts={posts} censor={censor}/>
+                <Sidebar selected={selected}
+                         setSelected={setSelected}
+                />
+                {
+                    selected === "Home" &&
+                    <Home posts={posts}
+                          censor={censor}
+                    />
+                }
+                {
+                    selected === "Messages" &&
+                    <Messages posts={posts}
+                              censor={censor}
+                    />
+                }
+                {
+                    selected === "Profile" &&
+                    <Profile address={"0x1ab573acf41245"}
+                             username={"Volthai7us"}
+                             bio={"Building this platform"}
+                    />
+                }
                 {/*<Sidebar/>*/}
             </div>
         </Layout>

@@ -40,6 +40,14 @@ async function newPost({
     )
 }
 
+async function newProfile({
+                              timeline,
+                              username,
+                              bio
+                          }) {
+    await timeline.setUserProfile(username, bio)
+}
+
 async function likePost({
                             timeline,
                             postID
@@ -60,10 +68,29 @@ describe("Timeline contract", function () {
         expect(postCount).to.equal(0);
     });
 
+    // it("Profile", async function () {
+    //     const verifierAddress = await deployVerifier()
+    //     const timeline = await deployTimeline({
+    //         verifierAddress: verifierAddress
+    //     })
+    //
+    //     await newProfile({
+    //         timeline,
+    //         username: "Volthai7us",
+    //         bio: "Building this platform"
+    //     })
+    // })
+
     it("Verify", async function () {
         const verifierAddress = await deployVerifier()
         const timeline = await deployTimeline({
             verifierAddress: verifierAddress
+        })
+
+        await newProfile({
+            timeline,
+            username: "Volthai7us",
+            bio: "Building this platform"
         })
 
         await newPost({

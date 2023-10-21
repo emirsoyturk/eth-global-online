@@ -1,7 +1,7 @@
 import {ethers} from "ethers";
 import TIMELINE_ABI from "../../../contract/artifacts/contracts/Timeline.sol/Timeline.json";
 
-const CONTRACT_ADDRESS = "0x034FC6a65710f4233BbfdF1ac1B919E5Fb6B05A4"
+const CONTRACT_ADDRESS = "0x157C5ccd387ea849498007b58ce8D2A5b2267a59"
 
 export async function getAndParsePost(contract, postId) {
     try {
