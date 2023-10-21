@@ -1,8 +1,9 @@
 import {shortenAddress} from "../../utils/index.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComment, faHeart, faShare} from "@fortawesome/free-solid-svg-icons";
-import {getSigner, getTimelineContract} from "../../api/index.js";
+import {getSigner, getTimelineContract, likePost, verify} from "../../api/index.js";
 import {useEffect, useState} from "react";
+import {toast} from "react-hot-toast";
 
 export default function Post(props) {
     const {address, text, date, likes, comments, id} = props
@@ -25,18 +26,29 @@ export default function Post(props) {
     }, [address]);
 
     const handleLike = async () => {
-        const contract = await getTimelineContract()
-        const signer = await getSigner()
+        const res = await likePost(id)
+        if(res.status) {
+            toast.success("Liked!")
+        } else {
+            toast.error(res.err)
+        }
+    }
 
-        contract
-            .connect(signer)
-            .likePost(id)
+    const handleVerify = async () => {
+        const verified = await verify(id)
+        if (verified) {
+            toast.success("Verified!")
+        } else {
+            toast.error("Not verified!")
+        }
     }
 
     return (
         <div className="relative flex flex-row items-center px-4 py-2 border border-opacity-30 border-dark_666">
             <button
-                className="absolute right-4 top-4 transform bg-dark_111 border border-dark_444 text-white px-2 py-1 rounded shadow-lg">
+                className="absolute right-4 top-4 transform bg-dark_111 border border-dark_444 text-white px-2 py-1 rounded shadow-lg"
+                onClick={handleVerify}
+            >
                 Verify
             </button>
             <div className="pr-4">

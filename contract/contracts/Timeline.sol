@@ -12,6 +12,7 @@ contract Timeline {
         bytes32 positive;
         bytes32 hash;
         bytes proof;
+        bytes32[] publicInputs;
     }
 
     struct Comment {
@@ -48,7 +49,8 @@ contract Timeline {
             commentsCount: 0,
             positive: _publicInputs[_publicInputs.length - 2],
             hash: _publicInputs[_publicInputs.length - 1],
-            proof: _proof
+            proof: _proof,
+            publicInputs : _publicInputs
         });
         postsCount++;
     }
@@ -59,6 +61,14 @@ contract Timeline {
 
         posts[_postId].likes++;
         likedBy[_postId][msg.sender] = true;
+    }
+
+    function verify(uint256 _postId) public view returns (bool){
+        require(_postId < postsCount, "Invalid Post ID");
+
+        Post storage post = posts[_postId];
+
+        return baseUltraVerifier.verify(post.proof, post.publicInputs);
     }
 
     function commentOnPost(uint256 _postId, string memory _content, bytes calldata _proof, bytes32[] calldata _publicInputs) public {

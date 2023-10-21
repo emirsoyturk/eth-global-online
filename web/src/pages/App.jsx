@@ -44,9 +44,19 @@ function App() {
         fetchPosts();
     }, [totalPost, censor]);
 
+    useEffect(() => {
+        if (window.ethereum) {
+            window.ethereum.on("chainChanged", () => {
+                window.location.reload();
+            });
+            window.ethereum.on("accountsChanged", () => {
+                window.location.reload();
+            });
+        }
+    });
+
     return (
         <Layout setCensor={setCensor} censor={censor}>
-            <Toaster/>
             <div className={"grid md:grid-cols-5 w-full"}>
                 <Sidebar selected={selected}
                          setSelected={setSelected}
