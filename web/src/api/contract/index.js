@@ -1,5 +1,5 @@
 import {ethers} from "ethers";
-import TIMELINE_ABI from "../../../../contract/artifacts/contracts/Timeline.sol/Timeline.json";
+import TIMELINE_ABI from "../abi/Timeline.json";
 import {indexesToSentence} from "../backend/index.js";
 
 const networks = [

@@ -88,12 +88,13 @@ async function prove(req, res) {
 
         let hex = Buffer.from(proof).toString('hex');
         generalLogger.info(`Proof generated`)
+        await bb.api.destroy()
         res.json({
                 proof: hex,
             }
         )
-    } catch
-        (e) {
+    } catch (e) {
+        console.log(e)
         res.json({error: "could not satisfy all constraints"})
     }
 
@@ -109,6 +110,7 @@ async function verify(req, res) {
     const bb = await initializeBB(acirBuffers.acirBufferUncompressed)
     await bb.api.acirInitProvingKey(bb.acirComposer, acirBuffers.acirBufferUncompressed);
     const verified = await bb.api.acirVerifyProof(bb.acirComposer, fromHexString(proof), false);
+    await bb.api.destroy()
 
     generalLogger.info(`Verification: ${verified}`)
     res.json(verified)
