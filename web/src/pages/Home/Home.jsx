@@ -56,7 +56,7 @@ function NewPost(props) {
         const inputs = proof.slice(0, 1856)
         const slicedProof = proof.slice(1856)
 
-        const chunkSize = 64; // Each hex character represents 4 bits, so a byte needs 2 hex characters. 32 bytes = 32 * 2 = 64 characters
+        const chunkSize = 64;
         const array = [];
 
         for (let i = 0; i < inputs.length; i += chunkSize) {

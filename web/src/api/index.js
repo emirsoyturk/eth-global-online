@@ -8,12 +8,10 @@ export async function getAndParsePost(contract, postId, censor) {
         const result = await contract.getPost(postId, censor);
 
         const intIndexes = result[0].map(x => {
-            return (
-                x !== '0x0000000000000000000000000000000000000000000000000000000000000000'
-                    ? parseInt(x, 16)
-                    : null
-            )
+            return parseInt(x, 16)
         })
+
+        console.log(result)
         const content = (await indexesToSentence(intIndexes)).join(' ');
         const author = result[1];
         const likes = result[2].toNumber();
