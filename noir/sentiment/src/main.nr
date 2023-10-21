@@ -6,7 +6,7 @@ global b1: [Field; 10] = [-728, 1116, -2565, 923, -953, -2996, -128, -180, -7969
 global w2: [Field; 20] = [8428, -23360, -1948, 4805, 4958, 6338, -17978, 5048, -12426, 5841, -10253, 22302, 392, -2349, -5154, -5664, 19105, -6470, 12999, -7045];
 global b2: [Field; 2] = [-18773845, 9197830];
 
-fn main(input: [Field; 27], intent: Field) {
+fn main(input: pub [Field; 27], intent: pub Field) {
   let output = input;
   let output = relu(fc(output, w1, b1));
   let output = arg_max(fc(output, w2, b2));
