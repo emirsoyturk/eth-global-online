@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import {askToChangeNetwork} from "../../api/index.js";
+import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
+import {askToChangeNetwork, getChain, getProvider, getSigner} from "../../api/index.js";
 
 export default function Dropdown() {
-    const [selectedNetwork, setSelectedNetwork] = useState("Mantle Testnet");
+    const [selectedNetwork, setSelectedNetwork] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const networks = ['Mantle Testnet', 'Scroll Testnet'];
+    const networks = ['Mantle Testnet', 'Scroll Sepolia Testnet'];
 
     useEffect(() => {
         function handleDocumentClick(event) {
@@ -15,6 +15,14 @@ export default function Dropdown() {
                 setIsOpen(false);
             }
         }
+
+        async function selectNetwork() {
+            const provider = await getProvider()
+            const chain = await getChain(provider)
+            setSelectedNetwork(chain.chainName)
+        }
+
+        selectNetwork()
 
         document.addEventListener('mousedown', handleDocumentClick);
         return () => {
@@ -31,7 +39,7 @@ export default function Dropdown() {
                     className="inline-flex justify-center items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
                 >
                     <span className="mr-1">{selectedNetwork || "Select Network"}</span>
-                    <FontAwesomeIcon icon={faArrowDown} />
+                    <FontAwesomeIcon icon={faCaretDown} className={`${isOpen ? '-rotate-0' : ''} -rotate-90 duration-300`} />
                 </button>
             </div>
 

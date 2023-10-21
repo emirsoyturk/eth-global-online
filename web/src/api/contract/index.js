@@ -16,9 +16,9 @@ const networks = [
         blockExplorerUrls: ["https://explorer.testnet.mantle.xyz"]
     },
     {
-        contractAddress: "0x15C01772ba72Fb231463ABFA340F478680Eca902",
+        contractAddress: "0x0bD0Ce160Ea0d7c2C9C853F8A7663bd1D82CF50d",
         chainName: "Scroll Sepolia Testnet",
-        rpcUrls: ["https://scroll-sepolia.blockpi.network/v1/rpc/public"],
+        rpcUrls: ["https://scroll-sepolia.public.blastapi.io"],
         chainId: "0x8274f",
         nativeCurrency: {
             name: "ETH",
@@ -93,6 +93,22 @@ export async function getSigner() {
 
 }
 
+export async function getProvider() {
+    let provider
+    if (window.ethereum) {
+        await window.ethereum.request({method: 'eth_requestAccounts'});
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+    }
+
+    return provider
+}
+
+export async function getChain(provider) {
+    const {chainId} = await provider.getNetwork()
+    const chain = networks.find(network => network.chainId == chainId)
+    return chain
+}
+
 export async function getTimelineContract() {
     let provider
     if (window.ethereum) {
@@ -101,7 +117,10 @@ export async function getTimelineContract() {
     }
 
     if (provider) {
-        return new ethers.Contract(currentNetwork.contractAddress, TIMELINE_ABI.abi, provider)
+        const chain = await getChain(provider)
+        currentNetwork = chain
+        const timeline = new ethers.Contract(chain.contractAddress, TIMELINE_ABI.abi, provider)
+        return timeline
     }
 }
 
@@ -129,11 +148,5 @@ export function askToChangeNetwork(id) {
         }]
     })
 
-    req
-        .then(r => {
-            currentNetwork = newNetwork
-        })
-        .catch(e => {
-            console.log(e)
-        })
+    currentNetwork = newNetwork
 }

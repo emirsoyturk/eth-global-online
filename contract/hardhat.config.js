@@ -32,6 +32,12 @@ module.exports = {
             accounts: [
                 process.env.PRIVATE_KEY_2
             ]
+        },
+        scroll_testnet: {
+            url: "https://scroll-sepolia.blockpi.network/v1/rpc/public",
+            accounts: [
+                process.env.PRIVATE_KEY_2
+            ]
         }
     }
 }
