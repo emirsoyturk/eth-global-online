@@ -22,5 +22,9 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18.18.0 <=20.6.0"
   }
+
 }
