@@ -10,6 +10,7 @@ contract Timeline {
         uint256 likes;
         uint256 commentsCount;
         bool positive;
+        bytes proof;
     }
 
     struct Comment {
@@ -18,7 +19,14 @@ contract Timeline {
         bool positive;
     }
 
+    struct Profile {
+        string username;
+        string bio;
+    }
+
+
     mapping(uint256 => Post) public posts;
+    mapping(address => Profile) public profiles;
     mapping(uint256 => mapping(address => bool)) public likedBy;
     mapping(uint256 => mapping(uint256 => Comment)) public comments;
 
@@ -37,7 +45,8 @@ contract Timeline {
             author: msg.sender,
             likes: 0,
             commentsCount: 0,
-            positive: _publicInputs[0] == bytes32("0x1")
+            positive: _publicInputs[1] == bytes32("1"),
+            proof: _proof
         });
         postsCount++;
     }
@@ -57,19 +66,40 @@ contract Timeline {
         comments[_postId][posts[_postId].commentsCount] = Comment({
             content: _content,
             author: msg.sender,
-            positive: _publicInputs[0] == bytes32("0x1")
+            positive: _publicInputs[1] == bytes32("1")
         });
 
         posts[_postId].commentsCount++;
     }
 
+    function setUserProfile(string memory _username, string memory _bio) public {
+        profiles[msg.sender] = Profile({
+            username: _username,
+            bio: _bio
+        });
+    }
+
     // View methods
+    function getUserProfile(address _user) public view returns (string memory, string memory) {
+        Profile storage profile = profiles[_user];
+        return (profile.username, profile.bio);
+    }
+
     function getPost(uint256 _postId, bool censor) public view returns (string memory, address, uint256, uint256) {
         require(_postId < postsCount, "Invalid Post ID");
 
         Post storage post = posts[_postId];
 
-        require(!censor || post.positive, "This post is tagged as negative");
+        //require(!censor || post.positive, "This post is tagged as negative");
+
+        if (censor && !post.positive) {
+            return (
+                "Censor",
+                post.author,
+                post.likes,
+                post.commentsCount
+            );
+        }
 
         return (
             post.content,

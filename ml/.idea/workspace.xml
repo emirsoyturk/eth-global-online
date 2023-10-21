@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a9cfbc2-2aa7-41c0-8048-a6235b6a8bdf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../contract/contracts/BaseUltraVerifier.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../contract/contracts/Timeline.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../contract/contracts/UltraVerificationKey.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../contract/contracts/UltraVerifier.sol" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/skproof/src/zkfloat.nr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../contract/contracts/plonk_vk.sol" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../contract/hardhat.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../contract/hardhat.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../contract/scripts/deploy.js" beforeDir="false" afterPath="$PROJECT_DIR$/../contract/scripts/deploy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_1_parameters.json" beforeDir="false" afterPath="$PROJECT_DIR$/model_1_parameters.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_1_samples.json" beforeDir="false" afterPath="$PROJECT_DIR$/model_1_samples.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/noir.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/noir.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof" beforeDir="false" afterPath="$PROJECT_DIR$/skproof" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/Nargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/Nargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/ZKFloat" beforeDir="false" />
@@ -24,10 +13,6 @@
       <change beforePath="$PROJECT_DIR$/skproof/skproof-package/build/lib/skproof/mlp/MLPClassifierProver.py" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/skproof-package/build/lib/skproof/mlp/MLPClassifierProver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/skproof-package/skproof/mlp/MLPClassifierProver.py" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/skproof-package/skproof/mlp/MLPClassifierProver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skproof/src/main.nr" beforeDir="false" afterPath="$PROJECT_DIR$/skproof/src/main.nr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/word_to_index.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/word_to_index.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../noir/sentiment/Prover.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../noir/sentiment/Prover.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../noir/sentiment/contract/sentiment/plonk_vk.sol" beforeDir="false" afterPath="$PROJECT_DIR$/../noir/sentiment/contract/sentiment/plonk_vk.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../noir/sentiment/src/main.nr" beforeDir="false" afterPath="$PROJECT_DIR$/../noir/sentiment/src/main.nr" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +85,7 @@
       <workItem from="1697629511274" duration="7303000" />
       <workItem from="1697703490217" duration="9610000" />
       <workItem from="1697789348053" duration="1055000" />
+      <workItem from="1697831992519" duration="812000" />
     </task>
     <servers />
   </component>

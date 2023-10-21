@@ -15,6 +15,8 @@ async function deployTimeline({
                               }) {
     const timeline = await ethers.deployContract("Timeline", [verifierAddress]);
     await timeline.deployTransaction.wait()
+
+    console.log(timeline.address)
     return timeline
 }
 
@@ -25,7 +27,7 @@ async function newPost({
                            positive,
                        }) {
     await timeline.createPost(
-        ethers.utils.hexlify(content),
+        content,
         ethers.utils.hexlify(proof),
         [
             ethers.utils.hexZeroPad(ethers.utils.hexlify(1), 32),
@@ -62,14 +64,14 @@ describe("Timeline contract", function () {
 
         await newPost({
             timeline: timeline,
-            content: 0,
+            content: "Selamlar",
             proof: 0,
             positive: 1
         })
 
         await newPost({
             timeline: timeline,
-            content: 0,
+            content: "Selamlar",
             proof: 0,
             positive: 1
         })
@@ -90,7 +92,38 @@ describe("Timeline contract", function () {
 
         await newPost({
             timeline: timeline,
-            content: 0,
+            content: "Selamlar",
+            proof: 0,
+            positive: 1
+        })
+        await newPost({
+            timeline: timeline,
+            content: "Selamlar",
+            proof: 0,
+            positive: 1
+        })
+
+        await newPost({
+            timeline: timeline,
+            content: "AAAAAAA",
+            proof: 0,
+            positive: 0
+        })
+        await newPost({
+            timeline: timeline,
+            content: "Selamlar",
+            proof: 0,
+            positive: 1
+        })
+        await newPost({
+            timeline: timeline,
+            content: "Kötü cümlelerrr",
+            proof: 0,
+            positive: 0
+        })
+        await newPost({
+            timeline: timeline,
+            content: "Selamlar",
             proof: 0,
             positive: 1
         })
@@ -101,7 +134,7 @@ describe("Timeline contract", function () {
         })
 
         const postCount = await timeline.postsCount()
-        expect(postCount).to.equal(1);
+        expect(postCount).to.equal(6);
 
         const isLiked = await timeline.isLikedBy(0, owner.address)
         expect(isLiked).to.equal(true)

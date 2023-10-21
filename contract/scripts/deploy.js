@@ -24,6 +24,16 @@ async function deployTimeline({
     console.log(`deployed to ${timeline.address}`);
 }
 
+async function post({
+                                  verifierAddress
+                              }) {
+    const Timeline = await hre.ethers.getContractFactory("Timeline");
+    const timeline = await Timeline.deploy(verifierAddress);
+    await timeline.deployed();
+
+    console.log(`deployed to ${timeline.address}`);
+}
+
 async function main() {
     const verifierAddress = await deployVerifier()
     await deployTimeline({

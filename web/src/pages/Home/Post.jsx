@@ -1,9 +1,19 @@
 import {shortenAddress} from "../../utils/index.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComment, faHeart, faShare} from "@fortawesome/free-solid-svg-icons";
+import {getSigner, getTimelineContract} from "../../api/index.js";
 
 export default function Post(props) {
-    const {sender, address, text, date} = props
+    const {sender, address, text, date, likes, comments, id} = props
+
+    const handleLike = async () => {
+        const contract = await getTimelineContract()
+        const signer = await getSigner()
+
+        contract
+            .connect(signer)
+            .likePost(id)
+    }
 
     return (
         <div className={"relative flex flex-row px-4 py-2 border-[1px] border-opacity-30 border-dark_666"}>
@@ -29,15 +39,13 @@ export default function Post(props) {
                 <span className={"block text-white font-semibold"}>
                     {text}
                 </span>
-                <div className={"flex flex-row justify-between text-dark_555 mt-4"}>
+                <div className={"flex flex-row justify-between w-1/2 text-dark_555 mt-4"}>
                     <PostIcon icon={faComment}
-                              count={61}
-                    />
-                    <PostIcon icon={faShare}
-                              count={12}
+                              count={comments}
                     />
                     <PostIcon icon={faHeart}
-                              count={6200}
+                              count={likes}
+                              onClick={handleLike}
                     />
                 </div>
             </div>
@@ -46,11 +54,14 @@ export default function Post(props) {
 }
 
 function PostIcon(props) {
-    const {icon, count} = props
+    const {icon, count, onClick} = props
 
     return (
         <div className={""}>
-            <FontAwesomeIcon icon={icon}/>
+            <FontAwesomeIcon icon={icon}
+                             onClick={onClick}
+                             className={"cursor-pointer"}
+            />
             <span className={"ml-4"}>
                 {count}
             </span>
