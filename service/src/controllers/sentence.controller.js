@@ -60,7 +60,7 @@ async function toIndexes(req, res) {
         return findClosestWordIndex(x)
     })
 
-    while (arr.length < 27) {
+    while (arr.length < 32) {
         arr.push(0)
     }
 
@@ -70,9 +70,9 @@ async function toIndexes(req, res) {
 async function fromIndexes(req, res) {
     let {indexes} = req.body
 
-    indexes = indexes.map(x => index_to_word[x])
+    const text = indexes.map(x => index_to_word[x])
 
-    res.json(indexes)
+    res.json(text)
 }
 
 module.exports = {

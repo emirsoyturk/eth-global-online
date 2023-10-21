@@ -87,23 +87,10 @@ contract Timeline {
         return (profile.username, profile.bio);
     }
 
-    function getPost(uint256 _postId, bool censor) public view returns (bytes32[] memory, address, uint256, uint256, bytes32) {
+    function getPost(uint256 _postId) public view returns (bytes32[] memory, address, uint256, uint256, bytes32) {
         require(_postId < postsCount, "Invalid Post ID");
 
         Post storage post = posts[_postId];
-
-        //require(!censor || post.positive, "This post is tagged as negative");
-
-//        if (censor && !post.positive) {
-//            bytes32[] memory censor;
-//            censor[0] = "0x0";
-//            return (
-//                censor,
-//                post.author,
-//                post.likes,
-//                post.commentsCount
-//            );
-//        }
 
         return (
             post.content,

@@ -3,9 +3,10 @@ import Sidebar from "./Sidebar/Sidebar.jsx";
 import Home from "./Home/Home.jsx";
 import {useEffect, useState} from "react";
 import {getAndParsePost, getTimelineContract, sentenceToIndexes} from "../api/index.js";
+import {Toaster} from "react-hot-toast";
 
 function App() {
-    const [censor, setCensor] = useState(false)
+    const [censor, setCensor] = useState(true)
     const [totalPost, setTotalPost] = useState(0)
     const [posts, setPosts] = useState([])
 
@@ -27,9 +28,9 @@ function App() {
             const contract = await getTimelineContract()
             if (contract) {
                 for (let i = posts.length; i < totalPost; i++) {
-                    const post = await getAndParsePost(contract, i, censor)
+                    const post = await getAndParsePost(contract, i)
                     post.id = i
-                    if (!post.error) {
+                    if (!post.error && (!censor || post.positive)) {
                         posts.push(post)
                     }
                 }
@@ -42,9 +43,10 @@ function App() {
 
     return (
         <Layout>
+            <Toaster />
             <div className={"grid md:grid-cols-5 w-full"}>
                 <Sidebar/>
-                <Home posts={posts}/>
+                <Home posts={posts} censor={censor}/>
                 {/*<Sidebar/>*/}
             </div>
         </Layout>

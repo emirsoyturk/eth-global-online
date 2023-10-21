@@ -1,28 +1,30 @@
 import {ethers} from "ethers";
 import TIMELINE_ABI from "../../../contract/artifacts/contracts/Timeline.sol/Timeline.json";
 
-const CONTRACT_ADDRESS = "0xbd9BFbD8bBf8e35b6dD520BEB3F80c18C91D770f"
+const CONTRACT_ADDRESS = "0x034FC6a65710f4233BbfdF1ac1B919E5Fb6B05A4"
 
-export async function getAndParsePost(contract, postId, censor) {
+export async function getAndParsePost(contract, postId) {
     try {
-        const result = await contract.getPost(postId, censor);
+        const result = await contract.getPost(postId);
 
         const intIndexes = result[0].map(x => {
             return parseInt(x, 16)
         })
 
-        console.log(result)
         const content = (await indexesToSentence(intIndexes)).join(' ');
         const author = result[1];
         const likes = result[2].toNumber();
         const commentsCount = result[3].toNumber();
+        const positive = result[4] === "0x0000000000000000000000000000000000000000000000000000000000000001"
 
         return {
             content,
             author,
             likes,
-            commentsCount
+            commentsCount,
+            positive
         };
+
     } catch (error) {
         console.error('An error occurred:', error);
         return {

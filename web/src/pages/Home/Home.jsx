@@ -9,9 +9,10 @@ import {
     getTimelineContract,
     getSigner
 } from "../../api/index.js";
+import {toast} from "react-hot-toast";
 
 export default function Home(props) {
-    const {posts} = props
+    const {posts, censor} = props
     return (
         <div className={"col-span-3 grid grid-cols-1 border-collapse w-full"}>
             <NewPost address={"0x00x00"}/>
@@ -42,19 +43,25 @@ function NewPost(props) {
     const [nsfw, setNsfw] = useState(false)
     const [proof, setProof] = useState(null)
     const handleProof = async () => {
-        const indexes = await sentenceToIndexes(text)
+        const indexes = await sentenceToIndexes(ghost)
         const hash = await mimcHash(indexes)
 
         const proof = await prove(indexes, hash, !nsfw)
-        setProof(proof)
+
+        if (proof.error) {
+            toast.error("Proof couldn't generated. Try change NSFW tag.")
+        } else if (proof.proof) {
+            toast.success("Proof is generated. You can submit your post.")
+            setProof(proof.proof)
+        }
     }
 
     const handleSubmit = async () => {
         const contract = await getTimelineContract()
         const signer = await getSigner()
 
-        const inputs = proof.slice(0, 1856)
-        const slicedProof = proof.slice(1856)
+        const inputs = proof.slice(0, 2176)
+        const slicedProof = proof.slice(2176)
 
         const chunkSize = 64;
         const array = [];
@@ -69,7 +76,7 @@ function NewPost(props) {
     }
 
     const handleChange = async (e) => {
-        setText(e.target.value)
+        setText(e.target.value.toLowerCase())
         const indexes = await sentenceToIndexes(e.target.value.trim())
         const sentence = await indexesToSentence(indexes)
         setGhost(sentence.join(' '))
@@ -77,7 +84,6 @@ function NewPost(props) {
     return (
         <div className={"relative flex flex-col px-4 py-2 border-[1px] border-opacity-30 border-dark_666"}>
             <div className={"flex flex-row"}>
-
                 <div className={"pr-3"}>
                     <div className={"bg-dark_666 h-10 w-10 rounded-full aspect-square"}/>
                 </div>
@@ -100,6 +106,7 @@ function NewPost(props) {
                            className={"block text-dark_444 font-semibold bg-dark_111 w-full focus:outline-0"}
                            placeholder={"Post something"}
                            contentEditable={false}
+                           readOnly={true}
                            value={ghost}
                     />
                 </div>

@@ -88,9 +88,13 @@ async function prove(req, res) {
 
         let hex = Buffer.from(proof).toString('hex');
         generalLogger.info(`Proof generated`)
-        res.json(hex)
-    } catch (e) {
-        res.json("could not satisfy all constraints")
+        res.json({
+                proof: hex,
+            }
+        )
+    } catch
+        (e) {
+        res.json({error: "could not satisfy all constraints"})
     }
 
 }
@@ -241,7 +245,8 @@ async function hash(req, res) {
     const hashHex = BigInt(hash).toString(16).padStart(64, '0');
 
     generalLogger.info(`Hashed: ${hashHex}`)
-    res.json("0x" + hashHex)}
+    res.json("0x" + hashHex)
+}
 
 module.exports = {
     prove: handleAsync(prove),
