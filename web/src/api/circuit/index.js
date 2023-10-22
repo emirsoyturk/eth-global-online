@@ -10,7 +10,7 @@ export async function feProve({
                               }) {
     try {
         const backend = new BarretenbergBackend(circuit, {
-            threads: 8
+            threads: 32
         });
         const noir = new Noir(circuit, backend);
         await noir.init();
@@ -21,10 +21,8 @@ export async function feProve({
             intent: ethers.utils.hexZeroPad(ethers.utils.hexlify(positive ? 1 : 0), 32)
         }
 
-        console.log(publicInputs)
-
         const proof = await noir.generateFinalProof(publicInputs);
-
+        await noir.destroy()
         return {
             proof: proof
         }

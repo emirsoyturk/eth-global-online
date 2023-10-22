@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {getAndParsePost, getTimelineContract, sentenceToIndexes} from "../api/index.js";
 import Messages from "./Home/Messages.jsx";
 import Profile from "./Home/Profile.jsx";
+import RightSidebar from "./RightSidebar/RightSidebar.jsx";
 
 function App() {
     const [censor, setCensor] = useState(true)
@@ -79,7 +80,7 @@ function App() {
                              bio={"Building this platform"}
                     />
                 }
-                {/*<Sidebar/>*/}
+                <RightSidebar/>
             </div>
         </Layout>
     )

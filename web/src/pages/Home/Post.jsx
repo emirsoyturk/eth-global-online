@@ -2,6 +2,7 @@ import {shortenAddress} from "../../utils/index.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faComment, faHeart, faShare} from "@fortawesome/free-solid-svg-icons";
 import {
+    feProve,
     getAndParseComment,
     getAndParsePost,
     getSigner,
@@ -110,7 +111,8 @@ export default function Post(props) {
                             {
                                 comments.map((comment, index) => (
                                     <Comment key={index}
-                                             username={"Volthai7us"}
+                                             username={""}
+                                             author={comment.author}
                                              text={comment.content}
                                     />
                                 ))
@@ -126,11 +128,11 @@ export default function Post(props) {
 }
 
 function Comment(props) {
-    const {username, text} = props
+    const {username, text, author} = props
     return (
         <div className="flex items-start space-x-2 w-56">
             <div className="flex flex-col text-dark_777 w-full">
-                <span className="font-semibold text-dark_777 text-sm">{username}</span>
+                <span className="font-semibold text-dark_777 text-sm">{shortenAddress({address: author})}</span>
                 <p className={"text-dark_666 text-sm"}>{text}</p>
                 <span className={"text-center"}>
                     {' • '}
@@ -148,12 +150,21 @@ function NewComment(props) {
     const [text, setText] = useState('')
     const [ghost, setGhost] = useState('')
 
+    function uint8ArrayToHex(uint8Array) {
+        return Array.from(uint8Array).map(byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+
     const handleProof = async () => {
         const indexes = await sentenceToIndexes(ghost)
         const hash = await mimcHash(indexes)
 
         setLoading(true)
-        const proof = await prove(indexes, hash, !nsfw)
+        const proof = await feProve({
+            input: indexes,
+            hash: hash,
+            positive: !nsfw
+        })
+
         setLoading(false)
         if (proof.error) {
             toast.error("Proof couldn't generated. Try to change Sensitive tag.")
@@ -178,19 +189,20 @@ function NewComment(props) {
         const contract = await getTimelineContract()
         const signer = await getSigner()
 
-        const inputs = proof.slice(0, 2176)
-        const slicedProof = proof.slice(2176)
+        const inputs = proof.publicInputs
+        const slicedProof = uint8ArrayToHex(proof.proof)
 
-        const chunkSize = 64;
         const array = [];
 
-        for (let i = 0; i < inputs.length; i += chunkSize) {
-            array.push("0x" + inputs.slice(i, i + chunkSize));
+        for (let i = 0; i < inputs.length; i++) {
+            array.push("0x" + uint8ArrayToHex(inputs[i]));
         }
 
-        contract
+        await contract
             .connect(signer)
             .commentOnPost(postId, "0x" + slicedProof, array)
+
+        setProof(null)
     }
 
     return (
@@ -236,7 +248,7 @@ function NewComment(props) {
                     Prove
                 </button>
                 <button
-                    className={`${loading || !proof ? 'cursor-not-allowed' : 'hover:bg-dark_222'} border border-dark_444 px-3 py-1 bg-dark_111 rounded-md shadow-sm text-dark_777 `}
+                    className={`${loading || !proof ? 'cursor-not-allowed' : 'hover:bg-dark_222'} ${proof ? 'animate-pulse' : 'bg-dark_111'} border border-dark_444 px-3 py-1 rounded-md shadow-sm text-dark_777 `}
                     onClick={handleSubmit}
                     disabled={loading || !proof}
                 >

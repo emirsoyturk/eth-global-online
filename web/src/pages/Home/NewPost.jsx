@@ -56,9 +56,11 @@ export default function NewPost() {
             array.push("0x" + uint8ArrayToHex(inputs[i]));
         }
 
-        contract
+        await contract
             .connect(signer)
             .createPost("0x" + slicedProof, array)
+
+        setProof(null)
     }
 
     const handleChange = async (e) => {
@@ -139,7 +141,7 @@ export default function NewPost() {
                         Prove
                     </button>
                     <button
-                        className={`${loading || !proof ? 'cursor-not-allowed' : 'hover:bg-dark_222'} border border-dark_444 px-3 py-1 bg-dark_111 rounded-md shadow-sm text-dark_777 `}
+                        className={`${loading || !proof ? 'cursor-not-allowed' : 'hover:bg-dark_222'} ${proof ? 'animate-pulse' : 'bg-dark_111'} border border-dark_444 px-3 py-1 rounded-md shadow-sm text-dark_777 `}
                         onClick={handleSubmit}
                         disabled={loading || !proof}
                     >

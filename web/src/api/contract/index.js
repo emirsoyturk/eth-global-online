@@ -4,7 +4,7 @@ import {indexesToSentence} from "../backend/index.js";
 
 const networks = [
     {
-        contractAddress: "0x4F010A974735dB2eb1572846e826263D5Cf5dc74",
+        contractAddress: "0x45cC5c7dD22AC1D0B87c0e8C6404c66b42Dd53d9",
         chainName: "Mantle Testnet",
         rpcUrls: ["https://rpc.testnet.mantle.xyz"],
         chainId: "0x1389",
@@ -60,7 +60,6 @@ export async function getAndParsePost(contract, postId) {
         }
     }
 }
-
 export async function getAndParseComment(contract, postId, commentId) {
     try {
         const result = await contract.getComment(postId, commentId);
@@ -86,8 +85,6 @@ export async function getAndParseComment(contract, postId, commentId) {
         }
     }
 }
-
-
 export async function likePost(postId) {
     try {
         const contract = await getTimelineContract()
@@ -106,7 +103,6 @@ export async function likePost(postId) {
         }
     }
 }
-
 export async function getSigner() {
     let provider
     if (window.ethereum) {
@@ -119,7 +115,6 @@ export async function getSigner() {
     }
 
 }
-
 export async function getProvider() {
     let provider
     if (window.ethereum) {
@@ -129,13 +124,11 @@ export async function getProvider() {
 
     return provider
 }
-
 export async function getChain(provider) {
     const {chainId} = await provider.getNetwork()
     const chain = networks.find(network => network.chainId == chainId)
     return chain
 }
-
 export async function getTimelineContract() {
     let provider
     if (window.ethereum) {
@@ -150,7 +143,6 @@ export async function getTimelineContract() {
         return timeline
     }
 }
-
 export async function verify(postId) {
     try {
         const contract = await getTimelineContract()
@@ -161,7 +153,6 @@ export async function verify(postId) {
         console.log(e)
     }
 }
-
 export function askToChangeNetwork(id) {
     const newNetwork = networks[id]
     const req = window.ethereum.request({
