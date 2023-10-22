@@ -16,7 +16,7 @@ const networks = [
         blockExplorerUrls: ["https://explorer.testnet.mantle.xyz"]
     },
     {
-        contractAddress: "0x0bD0Ce160Ea0d7c2C9C853F8A7663bd1D82CF50d",
+        contractAddress: "0x229b8b251C38AE612e53A7487469251aFD8804C2",
         chainName: "Scroll Sepolia Testnet",
         rpcUrls: ["https://scroll-sepolia.public.blastapi.io"],
         chainId: "0x8274f",
