@@ -39,5 +39,18 @@ module.exports = {
                 process.env.PRIVATE_KEY_2
             ]
         }
+    },
+    etherscan: {
+        apiKey: process.env.SCAN_API_KEY,
+        customChains: [
+            {
+                network: "scroll_testnet",
+                chainId: 534351,
+                urls: {
+                    apiURL: "https://api-sepolia.scrollscan.com/api",
+                    browserURL: "https://sepolia.scrollscan.dev/"
+                }
+            }
+        ]
     }
 }
