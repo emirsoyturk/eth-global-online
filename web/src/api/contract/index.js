@@ -61,6 +61,33 @@ export async function getAndParsePost(contract, postId) {
     }
 }
 
+export async function getAndParseComment(contract, postId, commentId) {
+    try {
+        const result = await contract.getComment(postId, commentId);
+
+        const intIndexes = result[0].map(x => {
+            return parseInt(x, 16)
+        })
+
+        const content = (await indexesToSentence(intIndexes)).join(' ');
+        const author = result[1];
+        const positive = result[2] === "0x0000000000000000000000000000000000000000000000000000000000000001"
+
+        return {
+            content,
+            author,
+            positive
+        };
+
+    } catch (error) {
+        console.error('An error occurred:', error);
+        return {
+            error: error
+        }
+    }
+}
+
+
 export async function likePost(postId) {
     try {
         const contract = await getTimelineContract()

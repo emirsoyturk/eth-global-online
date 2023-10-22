@@ -74,6 +74,10 @@ async function generateProof({witness, api, acirComposer, acirBufferUncompressed
 async function prove(req, res) {
     const {input, hash, positive} = req.body
 
+    console.log(input)
+    console.log(hash)
+    console.log(positive)
+
     try {
         const acirBuffers = decompression()
         const bb = await initializeBB(acirBuffers.acirBufferUncompressed)
