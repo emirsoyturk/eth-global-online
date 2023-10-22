@@ -1,5 +1,3 @@
-console.log(import.meta.env.VITE_API_URL)
-
 export async function sentenceToIndexes(sentence) {
     const body = JSON.stringify({sentence: sentence})
     const json = await fetch(`${import.meta.env.VITE_API_URL}/sentence/to/indexes`, {

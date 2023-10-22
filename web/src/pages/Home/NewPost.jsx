@@ -4,14 +4,14 @@ import {
     getTimelineContract,
     indexesToSentence,
     mimcHash,
-    prove,
+    feProve,
     sentenceToIndexes
 } from "../../api/index.js";
 import {toast} from "react-hot-toast";
 import {shortenAddress} from "../../utils/index.js";
 import ReactLoading from 'react-loading';
 
-export default function NewPost(props) {
+export default function NewPost() {
     const [text, setText] = useState('')
     const [ghost, setGhost] = useState('')
     const [nsfw, setNsfw] = useState(false)
@@ -23,7 +23,13 @@ export default function NewPost(props) {
         const hash = await mimcHash(indexes)
 
         setLoading(true)
-        const proof = await prove(indexes, hash, !nsfw)
+        const proof = await feProve(
+            {
+                input: indexes,
+                hash: hash,
+                positive: !nsfw
+            }
+        )
         setLoading(false)
         if (proof.error) {
             toast.error("Proof couldn't generated. Try to change Sensitive tag.")
@@ -72,7 +78,7 @@ export default function NewPost(props) {
 
         fetchAddress()
     }, []);
-    const types = ["blank","balls","bars","bubbles","cubes","cylon","spin","spinningBubbles","spokes"]
+    const types = ["blank", "balls", "bars", "bubbles", "cubes", "cylon", "spin", "spinningBubbles", "spokes"]
     return (
         <div className="flex flex-col px-4 py-2 border border-opacity-30 border-dark_666 rounded shadow-md">
             {loading &&
@@ -123,14 +129,14 @@ export default function NewPost(props) {
                 </section>
                 <div className="space-x-2">
                     <button
-                        className={`${loading ? 'cursor-not-allowed': 'hover:bg-dark_222'} border border-dark_444 px-3 py-1 bg-dark_111 rounded-md shadow-sm text-dark_777 `}
+                        className={`${loading ? 'cursor-not-allowed' : 'hover:bg-dark_222'} border border-dark_444 px-3 py-1 bg-dark_111 rounded-md shadow-sm text-dark_777 `}
                         onClick={handleProof}
                         disabled={loading}
                     >
                         Prove
                     </button>
                     <button
-                        className={`${loading || !proof ? 'cursor-not-allowed': 'hover:bg-dark_222'} border border-dark_444 px-3 py-1 bg-dark_111 rounded-md shadow-sm text-dark_777 `}
+                        className={`${loading || !proof ? 'cursor-not-allowed' : 'hover:bg-dark_222'} border border-dark_444 px-3 py-1 bg-dark_111 rounded-md shadow-sm text-dark_777 `}
                         onClick={handleSubmit}
                         disabled={loading || !proof}
                     >
