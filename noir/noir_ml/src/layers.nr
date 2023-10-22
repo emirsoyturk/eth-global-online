@@ -16,7 +16,7 @@ use crate::utils::is_greater_than_signed;
 /// let output = fc(input, weights, biases);
 /// assert_eq!(output, [9, 16]);
 /// ```
-fn fc<N_IN, N_IN_OUT, N_OUT>(x: [ Field; N_IN], w: [Field; N_IN_OUT], b: [Field; N_OUT]) -> [Field; N_OUT] {
+pub fn fc<N_IN, N_IN_OUT, N_OUT>(x: [ Field; N_IN], w: [Field; N_IN_OUT], b: [Field; N_OUT]) -> [Field; N_OUT] {
   assert(N_IN_OUT == N_IN * N_OUT);
 
   let mut result = [ 0; N_OUT ];

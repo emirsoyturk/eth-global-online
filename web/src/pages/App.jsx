@@ -3,7 +3,6 @@ import Sidebar from "./Sidebar/Sidebar.jsx";
 import Home from "./Home/Home.jsx";
 import {useEffect, useState} from "react";
 import {getAndParsePost, getTimelineContract, sentenceToIndexes} from "../api/index.js";
-import {Toaster} from "react-hot-toast";
 import Messages from "./Home/Messages.jsx";
 import Profile from "./Home/Profile.jsx";
 
