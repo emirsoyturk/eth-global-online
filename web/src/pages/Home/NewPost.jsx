@@ -39,18 +39,21 @@ export default function NewPost() {
         }
     }
 
+    function uint8ArrayToHex(uint8Array) {
+        return Array.from(uint8Array).map(byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+
     const handleSubmit = async () => {
         const contract = await getTimelineContract()
         const signer = await getSigner()
 
-        const inputs = proof.slice(0, 2176)
-        const slicedProof = proof.slice(2176)
+        const inputs = proof.publicInputs
+        const slicedProof = uint8ArrayToHex(proof.proof)
 
-        const chunkSize = 64;
         const array = [];
 
-        for (let i = 0; i < inputs.length; i += chunkSize) {
-            array.push("0x" + inputs.slice(i, i + chunkSize));
+        for (let i = 0; i < inputs.length; i ++) {
+            array.push("0x" + uint8ArrayToHex(inputs[i]));
         }
 
         contract

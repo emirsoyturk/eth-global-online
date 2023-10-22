@@ -9,9 +9,12 @@ export async function feProve({
                                   positive
                               }) {
     try {
-        const backend = new BarretenbergBackend(circuit);
+        const backend = new BarretenbergBackend(circuit, {
+            threads: 8
+        });
         const noir = new Noir(circuit, backend);
         await noir.init();
+
         const publicInputs = {
             input: input.map(x => ethers.utils.hexZeroPad(ethers.utils.hexlify(x), 32)),
             hash: hash,
@@ -19,7 +22,7 @@ export async function feProve({
         }
 
         console.log(publicInputs)
-        console.log(positive)
+
         const proof = await noir.generateFinalProof(publicInputs);
 
         return {

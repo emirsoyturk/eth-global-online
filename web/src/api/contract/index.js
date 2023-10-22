@@ -4,7 +4,7 @@ import {indexesToSentence} from "../backend/index.js";
 
 const networks = [
     {
-        contractAddress: "0x15C01772ba72Fb231463ABFA340F478680Eca902",
+        contractAddress: "0x4F010A974735dB2eb1572846e826263D5Cf5dc74",
         chainName: "Mantle Testnet",
         rpcUrls: ["https://rpc.testnet.mantle.xyz"],
         chainId: "0x1389",

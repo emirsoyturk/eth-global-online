@@ -16,7 +16,7 @@ use crate::utils::is_greater_than_signed;
 /// let activated = relu(values);
 /// assert_eq!(activated, [0, 2, 0]);
 /// ```
-fn relu<N>(values: [ Field; N ]) -> [ Field; N ] {
+pub fn relu<N>(values: [ Field; N ]) -> [ Field; N ] {
   let mut result = [0; N];
 
   for i in 0..N {
@@ -27,7 +27,7 @@ fn relu<N>(values: [ Field; N ]) -> [ Field; N ] {
   result
 }
 
-fn sigmoid(x: Field) -> Field {
+pub fn sigmoid(x: Field) -> Field {
   let mut exp_neg_x = 1;
   let mut term = 1;
   for i in 1..10 { 
@@ -43,7 +43,7 @@ fn sigmoid(x: Field) -> Field {
   sigmoid_approx
 }
 
-fn poly<N>(values: [ Field; N ]) -> [ Field; N ] {
+pub fn poly<N>(values: [ Field; N ]) -> [ Field; N ] {
   let mut result = [0; N];
 
   for i in 0..N {
@@ -52,7 +52,7 @@ fn poly<N>(values: [ Field; N ]) -> [ Field; N ] {
   result
 }
 
-fn abs_diff(a: Field, b: Field) -> Field {
+pub fn abs_diff(a: Field, b: Field) -> Field {
   if is_greater_than_signed(a, b) {
      a - b 
   } else { 
