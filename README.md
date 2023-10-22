@@ -33,7 +33,3 @@ The frontend, developed using React and Ethers, serves as the user interface. Be
 ## Conclusion
 
 By leveraging Aztec's Noir language and deploying on Scroll and Mantle, this project upholds transparency by hosting data and models on Filecoin. Its significance lies in addressing social media challenges, offering a decentralized, trustless form of censorship for the future.
-
----
-
-Feel free to make any modifications or additions as needed!
