@@ -20,7 +20,7 @@ The project began with training a machine learning model using PyTorch. The data
 
 ### 2. Zero-Knowledge Programming
 
-The model's weights and biases were exported for integration into Noir, Aztec's Zero-Knowledge programming language. The noir-ml library was used, and related materials are transparently hosted on Filecoin.
+The model's weights and biases were exported for integration into Noir, Aztec's Zero-Knowledge programming language. The noir-ml library was used is on this [link](https://github.com/metavind/noir-ml/tree/main/noir_ml). Circuit and model are transparently hosted on Filecoin.
 
 ### 3. Circuit Transformation & Integration
 
