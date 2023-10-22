@@ -19,6 +19,8 @@ contract Timeline {
         string content;
         address author;
         bool positive;
+        bytes proof;
+        bytes32[] publicInputs;
     }
 
     struct Profile {
@@ -50,7 +52,7 @@ contract Timeline {
             positive: _publicInputs[_publicInputs.length - 2],
             hash: _publicInputs[_publicInputs.length - 1],
             proof: _proof,
-            publicInputs : _publicInputs
+            publicInputs: _publicInputs
         });
         postsCount++;
     }
@@ -78,7 +80,9 @@ contract Timeline {
         comments[_postId][posts[_postId].commentsCount] = Comment({
             content: _content,
             author: msg.sender,
-            positive: _publicInputs[1] == bytes32("1")
+            positive: _publicInputs[1] == bytes32("1"),
+            proof: _proof,
+            publicInputs: _publicInputs
         });
 
         posts[_postId].commentsCount++;
