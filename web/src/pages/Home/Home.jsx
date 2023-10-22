@@ -13,10 +13,11 @@ export default function Home(props) {
                               address={post.author}
                               text={post.content}
                               likes={post.likes}
-                              comments={post.commentsCount}
+                              commentsCount={post.commentsCount}
                               date={"24s"}
                               positive={true}
                               id={post.id}
+                              censor={censor}
                         />
                     )
                 )

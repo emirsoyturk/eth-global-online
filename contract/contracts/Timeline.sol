@@ -16,9 +16,10 @@ contract Timeline {
     }
 
     struct Comment {
-        string content;
+        bytes32[] content;
         address author;
-        bool positive;
+        bytes32 positive;
+        bytes32 hash;
         bytes proof;
         bytes32[] publicInputs;
     }
@@ -73,14 +74,15 @@ contract Timeline {
         return baseUltraVerifier.verify(post.proof, post.publicInputs);
     }
 
-    function commentOnPost(uint256 _postId, string memory _content, bytes calldata _proof, bytes32[] calldata _publicInputs) public {
+    function commentOnPost(uint256 _postId, bytes calldata _proof, bytes32[] calldata _publicInputs) public {
         require(_postId < postsCount, "Invalid Post ID");
         require(baseUltraVerifier.verify(_proof, _publicInputs), "Wrong proof");
 
         comments[_postId][posts[_postId].commentsCount] = Comment({
-            content: _content,
+            content: _publicInputs[: _publicInputs.length - 2],
             author: msg.sender,
-            positive: _publicInputs[1] == bytes32("1"),
+            positive: _publicInputs[_publicInputs.length - 2],
+            hash: _publicInputs[_publicInputs.length - 1],
             proof: _proof,
             publicInputs: _publicInputs
         });
@@ -115,14 +117,15 @@ contract Timeline {
         );
     }
 
-    function getComment(uint256 _postId, uint256 _commentId) public view returns (string memory, address) {
+    function getComment(uint256 _postId, uint256 _commentId) public view returns (bytes32[] memory, address, bytes32) {
         require(_postId < postsCount, "Invalid Post ID");
         require(_commentId < posts[_postId].commentsCount, "Invalid Comment ID");
 
         Comment storage comment = comments[_postId][_commentId];
         return (
             comment.content,
-            comment.author
+            comment.author,
+            comment.positive
         );
     }
 
