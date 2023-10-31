@@ -27,8 +27,8 @@ export async function indexesToSentence(indexes) {
     return await json.json()
 }
 
-export async function prove(indexes, hash, positive) {
-    const body = JSON.stringify({input: indexes, hash: hash, positive: positive ? 1 : 0})
+export async function prove({input, hash, positive}) {
+    const body = JSON.stringify({input: input, hash: hash, positive: positive ? 1 : 0})
 
     const json = await fetch(`${import.meta.env.VITE_API_URL}/noir/prove`, {
         method: 'POST',

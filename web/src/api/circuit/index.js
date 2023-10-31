@@ -10,7 +10,7 @@ export async function feProve({
                               }) {
     try {
         const backend = new BarretenbergBackend(circuit, {
-            threads: 32
+            threads: 320
         });
         const noir = new Noir(circuit, backend);
         await noir.init();

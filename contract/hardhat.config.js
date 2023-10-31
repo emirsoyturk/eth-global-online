@@ -50,6 +50,14 @@ module.exports = {
                     apiURL: "https://api-sepolia.scrollscan.com/api",
                     browserURL: "https://sepolia.scrollscan.dev/"
                 }
+            },
+            {
+                network: "mantle_testnet",
+                chainId: 5001,
+                urls: {
+                    apiURL: "https://explorer.testnet.mantle.xyz/api",
+                    browserURL: "https://explorer.testnet.mantle.xyz/"
+                }
             }
         ]
     }

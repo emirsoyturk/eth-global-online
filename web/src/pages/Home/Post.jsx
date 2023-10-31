@@ -150,8 +150,13 @@ function NewComment(props) {
     const [text, setText] = useState('')
     const [ghost, setGhost] = useState('')
 
-    function uint8ArrayToHex(uint8Array) {
-        return Array.from(uint8Array).map(byte => byte.toString(16).padStart(2, '0')).join('');
+    function objectToHex(obj) {
+        let hexStr = '';
+        for (let key in obj) {
+            let value = obj[key];
+            hexStr += value.toString(16).padStart(2, '0');
+        }
+        return hexStr;
     }
 
     const handleProof = async () => {
@@ -159,7 +164,12 @@ function NewComment(props) {
         const hash = await mimcHash(indexes)
 
         setLoading(true)
-        const proof = await feProve({
+        // const proof = await feProve({
+        //     input: indexes,
+        //     hash: hash,
+        //     positive: !nsfw
+        // })
+        const proof = await prove({
             input: indexes,
             hash: hash,
             positive: !nsfw
@@ -190,12 +200,12 @@ function NewComment(props) {
         const signer = await getSigner()
 
         const inputs = proof.publicInputs
-        const slicedProof = uint8ArrayToHex(proof.proof)
+        const slicedProof = objectToHex(proof.proof)
 
         const array = [];
 
         for (let i = 0; i < inputs.length; i++) {
-            array.push("0x" + uint8ArrayToHex(inputs[i]));
+            array.push("0x" + objectToHex(inputs[i]));
         }
 
         await contract

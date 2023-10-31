@@ -15,3 +15,14 @@ fn main(input: pub [Field; 32], intent: pub Field, hash: pub Field) {
   let output = arg_max(fc(output, w2, b2));
   assert(output == intent);
 }
+
+
+
+
+
+
+
+
+
+
+
